@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.lww.dao.MenuDao" >
+  <resultMap id="BaseResultMap" type="com.cn.lww.pojo.Menu" >
+    <id column="menu_id" property="menuId" jdbcType="INTEGER" />
+    <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+    <result column="menu_level" property="menuLevel" jdbcType="INTEGER" />
+    <result column="menu_parent_node" property="menuParentNode" jdbcType="INTEGER" />
+    <result column="menu_path" property="menuPath" jdbcType="VARCHAR" />
+    <result column="menu_url" property="menuUrl" jdbcType="VARCHAR" />
+    <result column="menu_leaf_node" property="menuLeafNode" jdbcType="CHAR" />
+    <result column="menu_is_show" property="menuIsShow" jdbcType="CHAR" />
+    <result column="menu_is_choose" property="menuIsChoose" jdbcType="CHAR" />
+    <result column="menu_in_table_time" property="menuInTableTime" jdbcType="TIMESTAMP" />
+    <result column="menu_effect_time" property="menuEffectTime" jdbcType="TIMESTAMP" />
+    <result column="menu_ineffectiveness_time" property="menuIneffectivenessTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    menu_id, menu_name, menu_level, menu_parent_node, menu_path, menu_url, menu_leaf_node, 
+    menu_is_show, menu_is_choose, menu_in_table_time, menu_effect_time, menu_ineffectiveness_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from menu
+    where menu_id = #{menuId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from menu
+    where menu_id = #{menuId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.lww.pojo.Menu" >
+    insert into menu (menu_id, menu_name, menu_level, 
+      menu_parent_node, menu_path, menu_url, 
+      menu_leaf_node, menu_is_show, menu_is_choose, 
+      menu_in_table_time, menu_effect_time, menu_ineffectiveness_time
+      )
+    values (#{menuId,jdbcType=INTEGER}, #{menuName,jdbcType=VARCHAR}, #{menuLevel,jdbcType=INTEGER}, 
+      #{menuParentNode,jdbcType=INTEGER}, #{menuPath,jdbcType=VARCHAR}, #{menuUrl,jdbcType=VARCHAR}, 
+      #{menuLeafNode,jdbcType=CHAR}, #{menuIsShow,jdbcType=CHAR}, #{menuIsChoose,jdbcType=CHAR}, 
+      #{menuInTableTime,jdbcType=TIMESTAMP}, #{menuEffectTime,jdbcType=TIMESTAMP}, #{menuIneffectivenessTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.lww.pojo.Menu" >
+    insert into menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="menuId != null" >
+        menu_id,
+      </if>
+      <if test="menuName != null" >
+        menu_name,
+      </if>
+      <if test="menuLevel != null" >
+        menu_level,
+      </if>
+      <if test="menuParentNode != null" >
+        menu_parent_node,
+      </if>
+      <if test="menuPath != null" >
+        menu_path,
+      </if>
+      <if test="menuUrl != null" >
+        menu_url,
+      </if>
+      <if test="menuLeafNode != null" >
+        menu_leaf_node,
+      </if>
+      <if test="menuIsShow != null" >
+        menu_is_show,
+      </if>
+      <if test="menuIsChoose != null" >
+        menu_is_choose,
+      </if>
+      <if test="menuInTableTime != null" >
+        menu_in_table_time,
+      </if>
+      <if test="menuEffectTime != null" >
+        menu_effect_time,
+      </if>
+      <if test="menuIneffectivenessTime != null" >
+        menu_ineffectiveness_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="menuId != null" >
+        #{menuId,jdbcType=INTEGER},
+      </if>
+      <if test="menuName != null" >
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuLevel != null" >
+        #{menuLevel,jdbcType=INTEGER},
+      </if>
+      <if test="menuParentNode != null" >
+        #{menuParentNode,jdbcType=INTEGER},
+      </if>
+      <if test="menuPath != null" >
+        #{menuPath,jdbcType=VARCHAR},
+      </if>
+      <if test="menuUrl != null" >
+        #{menuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="menuLeafNode != null" >
+        #{menuLeafNode,jdbcType=CHAR},
+      </if>
+      <if test="menuIsShow != null" >
+        #{menuIsShow,jdbcType=CHAR},
+      </if>
+      <if test="menuIsChoose != null" >
+        #{menuIsChoose,jdbcType=CHAR},
+      </if>
+      <if test="menuInTableTime != null" >
+        #{menuInTableTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="menuEffectTime != null" >
+        #{menuEffectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="menuIneffectivenessTime != null" >
+        #{menuIneffectivenessTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.lww.pojo.Menu" >
+    update menu
+    <set >
+      <if test="menuName != null" >
+        menu_name = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuLevel != null" >
+        menu_level = #{menuLevel,jdbcType=INTEGER},
+      </if>
+      <if test="menuParentNode != null" >
+        menu_parent_node = #{menuParentNode,jdbcType=INTEGER},
+      </if>
+      <if test="menuPath != null" >
+        menu_path = #{menuPath,jdbcType=VARCHAR},
+      </if>
+      <if test="menuUrl != null" >
+        menu_url = #{menuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="menuLeafNode != null" >
+        menu_leaf_node = #{menuLeafNode,jdbcType=CHAR},
+      </if>
+      <if test="menuIsShow != null" >
+        menu_is_show = #{menuIsShow,jdbcType=CHAR},
+      </if>
+      <if test="menuIsChoose != null" >
+        menu_is_choose = #{menuIsChoose,jdbcType=CHAR},
+      </if>
+      <if test="menuInTableTime != null" >
+        menu_in_table_time = #{menuInTableTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="menuEffectTime != null" >
+        menu_effect_time = #{menuEffectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="menuIneffectivenessTime != null" >
+        menu_ineffectiveness_time = #{menuIneffectivenessTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where menu_id = #{menuId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.lww.pojo.Menu" >
+    update menu
+    set menu_name = #{menuName,jdbcType=VARCHAR},
+      menu_level = #{menuLevel,jdbcType=INTEGER},
+      menu_parent_node = #{menuParentNode,jdbcType=INTEGER},
+      menu_path = #{menuPath,jdbcType=VARCHAR},
+      menu_url = #{menuUrl,jdbcType=VARCHAR},
+      menu_leaf_node = #{menuLeafNode,jdbcType=CHAR},
+      menu_is_show = #{menuIsShow,jdbcType=CHAR},
+      menu_is_choose = #{menuIsChoose,jdbcType=CHAR},
+      menu_in_table_time = #{menuInTableTime,jdbcType=TIMESTAMP},
+      menu_effect_time = #{menuEffectTime,jdbcType=TIMESTAMP},
+      menu_ineffectiveness_time = #{menuIneffectivenessTime,jdbcType=TIMESTAMP}
+    where menu_id = #{menuId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.lww.dao.RoleDao" >
+  <resultMap id="BaseResultMap" type="com.cn.lww.pojo.Role" >
+    <id column="role_group_id" property="roleGroupId" jdbcType="INTEGER" />
+    <result column="role_group_name" property="roleGroupName" jdbcType="VARCHAR" />
+    <result column="role_group" property="roleGroup" jdbcType="VARCHAR" />
+    <result column="role_group_max_count" property="roleGroupMaxCount" jdbcType="INTEGER" />
+    <result column="role_group_new_count" property="roleGroupNewCount" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.cn.lww.pojo.Role" extends="BaseResultMap" >
+    <result column="role_describe" property="roleDescribe" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    role_group_id, role_group_name, role_group, role_group_max_count, role_group_new_count
+  </sql>
+  <sql id="Blob_Column_List" >
+    role_describe
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from role
+    where role_group_id = #{roleGroupId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from role
+    where role_group_id = #{roleGroupId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.lww.pojo.Role" >
+    insert into role (role_group_id, role_group_name, role_group, 
+      role_group_max_count, role_group_new_count, role_describe
+      )
+    values (#{roleGroupId,jdbcType=INTEGER}, #{roleGroupName,jdbcType=VARCHAR}, #{roleGroup,jdbcType=VARCHAR}, 
+      #{roleGroupMaxCount,jdbcType=INTEGER}, #{roleGroupNewCount,jdbcType=INTEGER}, #{roleDescribe,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.lww.pojo.Role" >
+    insert into role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleGroupId != null" >
+        role_group_id,
+      </if>
+      <if test="roleGroupName != null" >
+        role_group_name,
+      </if>
+      <if test="roleGroup != null" >
+        role_group,
+      </if>
+      <if test="roleGroupMaxCount != null" >
+        role_group_max_count,
+      </if>
+      <if test="roleGroupNewCount != null" >
+        role_group_new_count,
+      </if>
+      <if test="roleDescribe != null" >
+        role_describe,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleGroupId != null" >
+        #{roleGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="roleGroupName != null" >
+        #{roleGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleGroup != null" >
+        #{roleGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="roleGroupMaxCount != null" >
+        #{roleGroupMaxCount,jdbcType=INTEGER},
+      </if>
+      <if test="roleGroupNewCount != null" >
+        #{roleGroupNewCount,jdbcType=INTEGER},
+      </if>
+      <if test="roleDescribe != null" >
+        #{roleDescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.lww.pojo.Role" >
+    update role
+    <set >
+      <if test="roleGroupName != null" >
+        role_group_name = #{roleGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleGroup != null" >
+        role_group = #{roleGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="roleGroupMaxCount != null" >
+        role_group_max_count = #{roleGroupMaxCount,jdbcType=INTEGER},
+      </if>
+      <if test="roleGroupNewCount != null" >
+        role_group_new_count = #{roleGroupNewCount,jdbcType=INTEGER},
+      </if>
+      <if test="roleDescribe != null" >
+        role_describe = #{roleDescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where role_group_id = #{roleGroupId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cn.lww.pojo.Role" >
+    update role
+    set role_group_name = #{roleGroupName,jdbcType=VARCHAR},
+      role_group = #{roleGroup,jdbcType=VARCHAR},
+      role_group_max_count = #{roleGroupMaxCount,jdbcType=INTEGER},
+      role_group_new_count = #{roleGroupNewCount,jdbcType=INTEGER},
+      role_describe = #{roleDescribe,jdbcType=LONGVARCHAR}
+    where role_group_id = #{roleGroupId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.lww.pojo.Role" >
+    update role
+    set role_group_name = #{roleGroupName,jdbcType=VARCHAR},
+      role_group = #{roleGroup,jdbcType=VARCHAR},
+      role_group_max_count = #{roleGroupMaxCount,jdbcType=INTEGER},
+      role_group_new_count = #{roleGroupNewCount,jdbcType=INTEGER}
+    where role_group_id = #{roleGroupId,jdbcType=INTEGER}
+  </update>
+</mapper>

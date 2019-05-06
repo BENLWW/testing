@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.lww.dao.STeacherDao" >
+  <resultMap id="BaseResultMap" type="com.cn.lww.pojo.STeacher" >
+    <id column="teacher_id" property="teacherId" jdbcType="INTEGER" />
+    <result column="teacher_number" property="teacherNumber" jdbcType="INTEGER" />
+    <result column="teacher_name" property="teacherName" jdbcType="VARCHAR" />
+    <result column="teaching_subject" property="teachingSubject" jdbcType="VARCHAR" />
+    <result column="teacher_phone" property="teacherPhone" jdbcType="VARCHAR" />
+    <result column="teacher_account_effect_time" property="teacherAccountEffectTime" jdbcType="TIMESTAMP" />
+    <result column="teacher_email" property="teacherEmail" jdbcType="VARCHAR" />
+    <result column="tacher_lapse" property="tacherLapse" jdbcType="VARCHAR" />
+    <result column="tacher_lapse_time" property="tacherLapseTime" jdbcType="TIMESTAMP" />
+    <result column="teacher_grade_name" property="teacherGradeName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.cn.lww.pojo.STeacher" extends="BaseResultMap" >
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    teacher_id, teacher_number, teacher_name, teaching_subject, teacher_phone, teacher_account_effect_time, 
+    teacher_email, tacher_lapse, tacher_lapse_time, teacher_grade_name
+  </sql>
+  <sql id="Blob_Column_List" >
+    remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from teacher_score
+    where teacher_id = #{teacherId,jdbcType=INTEGER}
+  </select>
+    <select id="selectByName" resultMap="ResultMapWithBLOBs" parameterType="String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from teacher_score
+    where teacher_name = #{teacherName,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByTeacherNumber" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from teacher_score
+    where teacher_number = #{teacherNumber,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from teacher_score
+    where teacher_id = #{teacherId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.lww.pojo.STeacher" >
+    insert into teacher_score (teacher_id, teacher_number, teacher_name, 
+      teaching_subject, teacher_phone, teacher_account_effect_time, 
+      teacher_email, tacher_lapse, tacher_lapse_time, 
+      teacher_grade_name, remark)
+    values (#{teacherId,jdbcType=INTEGER}, #{teacherNumber,jdbcType=INTEGER}, #{teacherName,jdbcType=VARCHAR}, 
+      #{teachingSubject,jdbcType=VARCHAR}, #{teacherPhone,jdbcType=VARCHAR}, #{teacherAccountEffectTime,jdbcType=TIMESTAMP}, 
+      #{teacherEmail,jdbcType=VARCHAR}, #{tacherLapse,jdbcType=VARCHAR}, #{tacherLapseTime,jdbcType=TIMESTAMP}, 
+      #{teacherGradeName,jdbcType=VARCHAR}, #{remark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.lww.pojo.STeacher" >
+    insert into teacher_score
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="teacherId != null" >
+        teacher_id,
+      </if>
+      <if test="teacherNumber != null" >
+        teacher_number,
+      </if>
+      <if test="teacherName != null" >
+        teacher_name,
+      </if>
+      <if test="teachingSubject != null" >
+        teaching_subject,
+      </if>
+      <if test="teacherPhone != null" >
+        teacher_phone,
+      </if>
+      <if test="teacherAccountEffectTime != null" >
+        teacher_account_effect_time,
+      </if>
+      <if test="teacherEmail != null" >
+        teacher_email,
+      </if>
+      <if test="tacherLapse != null" >
+        tacher_lapse,
+      </if>
+      <if test="tacherLapseTime != null" >
+        tacher_lapse_time,
+      </if>
+      <if test="teacherGradeName != null" >
+        teacher_grade_name,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="teacherId != null" >
+        #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherNumber != null" >
+        #{teacherNumber,jdbcType=INTEGER},
+      </if>
+      <if test="teacherName != null" >
+        #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="teachingSubject != null" >
+        #{teachingSubject,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherPhone != null" >
+        #{teacherPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherAccountEffectTime != null" >
+        #{teacherAccountEffectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="teacherEmail != null" >
+        #{teacherEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="tacherLapse != null" >
+        #{tacherLapse,jdbcType=VARCHAR},
+      </if>
+      <if test="tacherLapseTime != null" >
+        #{tacherLapseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="teacherGradeName != null" >
+        #{teacherGradeName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.lww.pojo.STeacher" >
+    update teacher_score
+    <set >
+      <if test="teacherNumber != null" >
+        teacher_number = #{teacherNumber,jdbcType=INTEGER},
+      </if>
+      <if test="teacherName != null" >
+        teacher_name = #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="teachingSubject != null" >
+        teaching_subject = #{teachingSubject,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherPhone != null" >
+        teacher_phone = #{teacherPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherAccountEffectTime != null" >
+        teacher_account_effect_time = #{teacherAccountEffectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="teacherEmail != null" >
+        teacher_email = #{teacherEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="tacherLapse != null" >
+        tacher_lapse = #{tacherLapse,jdbcType=VARCHAR},
+      </if>
+      <if test="tacherLapseTime != null" >
+        tacher_lapse_time = #{tacherLapseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="teacherGradeName != null" >
+        teacher_grade_name = #{teacherGradeName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where teacher_id = #{teacherId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cn.lww.pojo.STeacher" >
+    update teacher_score
+    set teacher_number = #{teacherNumber,jdbcType=INTEGER},
+      teacher_name = #{teacherName,jdbcType=VARCHAR},
+      teaching_subject = #{teachingSubject,jdbcType=VARCHAR},
+      teacher_phone = #{teacherPhone,jdbcType=VARCHAR},
+      teacher_account_effect_time = #{teacherAccountEffectTime,jdbcType=TIMESTAMP},
+      teacher_email = #{teacherEmail,jdbcType=VARCHAR},
+      tacher_lapse = #{tacherLapse,jdbcType=VARCHAR},
+      tacher_lapse_time = #{tacherLapseTime,jdbcType=TIMESTAMP},
+      teacher_grade_name = #{teacherGradeName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where teacher_id = #{teacherId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.lww.pojo.STeacher" >
+    update teacher_score
+    set teacher_number = #{teacherNumber,jdbcType=INTEGER},
+      teacher_name = #{teacherName,jdbcType=VARCHAR},
+      teaching_subject = #{teachingSubject,jdbcType=VARCHAR},
+      teacher_phone = #{teacherPhone,jdbcType=VARCHAR},
+      teacher_account_effect_time = #{teacherAccountEffectTime,jdbcType=TIMESTAMP},
+      teacher_email = #{teacherEmail,jdbcType=VARCHAR},
+      tacher_lapse = #{tacherLapse,jdbcType=VARCHAR},
+      tacher_lapse_time = #{tacherLapseTime,jdbcType=TIMESTAMP},
+      teacher_grade_name = #{teacherGradeName,jdbcType=VARCHAR}
+    where teacher_id = #{teacherId,jdbcType=INTEGER}
+  </update>
+</mapper>

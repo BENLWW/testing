@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.lww.dao.SStudentDao" >
+  <resultMap id="BaseResultMap" type="com.cn.lww.pojo.SStudent" >
+    <id column="student_id" property="studentId" jdbcType="INTEGER" />
+    <result column="student_number" property="studentNumber" jdbcType="INTEGER" />
+    <result column="student_name" property="studentName" jdbcType="VARCHAR" />
+    <result column="teacher_number" property="teacherNumber" jdbcType="INTEGER" />
+    <result column="student_lapse" property="studentLapse" jdbcType="VARCHAR" />
+    <result column="student_lapse_time" property="studentLapseTime" jdbcType="TIMESTAMP" />
+    <result column="class_name" property="className" jdbcType="VARCHAR" />
+    <result column="student_grade_name" property="studentGradeName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.cn.lww.pojo.SStudent" extends="BaseResultMap" >
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    student_id, student_number, student_name, teacher_number, student_lapse, student_lapse_time, 
+    class_name, student_grade_name
+  </sql>
+  <sql id="Blob_Column_List" >
+    remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from student_score
+    where student_id = #{studentId,jdbcType=INTEGER}
+  </select>
+  <select id="findAllStudents" resultMap="BaseResultMap" >    
+        select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Base_Column_List" />
+    from student_score
+  </select>
+  <select id="findStudentBySome" resultMap="BaseResultMap" parameterType="com.cn.lww.pojo.SStudent">    
+        select * from student_score where 1=1 
+    <if test="studentId != null" >
+        and  student_id=#{studentId,jdbcType=INTEGER}
+      </if>
+      <if test="studentNumber != null" >
+        and  student_number=#{studentNumber,jdbcType=INTEGER}
+      </if>
+      <if test="studentName != null" >
+        and  student_name=#{studentName,jdbcType=VARCHAR}
+      </if>
+      <if test="teacherNumber != null" >
+        and  teacher_number=#{teacherNumber,jdbcType=INTEGER}
+      </if>
+      <if test="studentLapse != null" >
+        and  student_lapse=#{studentLapse,jdbcType=VARCHAR}
+      </if>
+      <if test="studentLapseTime != null" >
+        and  student_lapse_time=#{studentLapseTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="className != null" >
+        and  class_name=#{className,jdbcType=VARCHAR}
+      </if>
+      <if test="studentGradeName != null" >
+        and  student_grade_name=#{studentGradeName,jdbcType=VARCHAR}
+      </if>
+      <if test="remark != null" >
+        and  #{remark,jdbcType=LONGVARCHAR}
+      </if>
+  </select>
+  <select id="selectByStudentNumber" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from student_score
+    where student_number = #{studentNumber,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from student_score
+    where student_id = #{studentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.lww.pojo.SStudent" >
+    insert into student_score (student_id, student_number, student_name, 
+      teacher_number, student_lapse, student_lapse_time, 
+      class_name, student_grade_name, remark
+      )
+    values (#{studentId,jdbcType=INTEGER}, #{studentNumber,jdbcType=INTEGER}, #{studentName,jdbcType=VARCHAR}, 
+      #{teacherNumber,jdbcType=INTEGER}, #{studentLapse,jdbcType=VARCHAR}, #{studentLapseTime,jdbcType=TIMESTAMP}, 
+      #{className,jdbcType=VARCHAR}, #{studentGradeName,jdbcType=VARCHAR}, #{remark,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.lww.pojo.SStudent" >
+    insert into student_score
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="studentId != null" >
+        student_id,
+      </if>
+      <if test="studentNumber != null" >
+        student_number,
+      </if>
+      <if test="studentName != null" >
+        student_name,
+      </if>
+      <if test="teacherNumber != null" >
+        teacher_number,
+      </if>
+      <if test="studentLapse != null" >
+        student_lapse,
+      </if>
+      <if test="studentLapseTime != null" >
+        student_lapse_time,
+      </if>
+      <if test="className != null" >
+        class_name,
+      </if>
+      <if test="studentGradeName != null" >
+        student_grade_name,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="studentId != null" >
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="studentNumber != null" >
+        #{studentNumber,jdbcType=INTEGER},
+      </if>
+      <if test="studentName != null" >
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherNumber != null" >
+        #{teacherNumber,jdbcType=INTEGER},
+      </if>
+      <if test="studentLapse != null" >
+        #{studentLapse,jdbcType=VARCHAR},
+      </if>
+      <if test="studentLapseTime != null" >
+        #{studentLapseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="className != null" >
+        #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="studentGradeName != null" >
+        #{studentGradeName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.lww.pojo.SStudent" >
+    update student_score
+    <set >
+      <if test="studentNumber != null" >
+        student_number = #{studentNumber,jdbcType=INTEGER},
+      </if>
+      <if test="studentName != null" >
+        student_name = #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherNumber != null" >
+        teacher_number = #{teacherNumber,jdbcType=INTEGER},
+      </if>
+      <if test="studentLapse != null" >
+        student_lapse = #{studentLapse,jdbcType=VARCHAR},
+      </if>
+      <if test="studentLapseTime != null" >
+        student_lapse_time = #{studentLapseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="className != null" >
+        class_name = #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="studentGradeName != null" >
+        student_grade_name = #{studentGradeName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where student_id = #{studentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cn.lww.pojo.SStudent" >
+    update student_score
+    set student_number = #{studentNumber,jdbcType=INTEGER},
+      student_name = #{studentName,jdbcType=VARCHAR},
+      teacher_number = #{teacherNumber,jdbcType=INTEGER},
+      student_lapse = #{studentLapse,jdbcType=VARCHAR},
+      student_lapse_time = #{studentLapseTime,jdbcType=TIMESTAMP},
+      class_name = #{className,jdbcType=VARCHAR},
+      student_grade_name = #{studentGradeName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where student_id = #{studentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.lww.pojo.SStudent" >
+    update student_score
+    set student_number = #{studentNumber,jdbcType=INTEGER},
+      student_name = #{studentName,jdbcType=VARCHAR},
+      teacher_number = #{teacherNumber,jdbcType=INTEGER},
+      student_lapse = #{studentLapse,jdbcType=VARCHAR},
+      student_lapse_time = #{studentLapseTime,jdbcType=TIMESTAMP},
+      class_name = #{className,jdbcType=VARCHAR},
+      student_grade_name = #{studentGradeName,jdbcType=VARCHAR}
+    where student_id = #{studentId,jdbcType=INTEGER}
+  </update>
+</mapper>

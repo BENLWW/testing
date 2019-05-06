@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.lww.dao.ScoreDao" >
+  <resultMap id="BaseResultMap" type="com.cn.lww.pojo.Score" >
+    <id column="score_id" property="scoreId" jdbcType="INTEGER" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="subject_id" property="subjectId" jdbcType="INTEGER" />
+    <result column="student_number" property="studentNumber" jdbcType="INTEGER" />
+    <result column="subject_teacher_number" property="subjectTeacherNumber" jdbcType="INTEGER" />
+    <result column="modification_teacher_number" property="modificationTeacherNumber" jdbcType="INTEGER" />
+    <result column="score_join_time" property="scoreJoinTime" jdbcType="TIMESTAMP" />
+    <result column="score_grade" property="scoreGrade" jdbcType="VARCHAR" />
+    <result column="score_team" property="scoreTeam" jdbcType="CHAR" />
+    <result column="descript" property="descript" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    score_id, score, subject_id, student_number, subject_teacher_number, modification_teacher_number, 
+    score_join_time, score_grade, score_team, descript
+  </sql>
+    <select id="findAllScore" resultMap="BaseResultMap" parameterType="com.cn.lww.pojo.GradeExtension">    
+        select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Base_Column_List" />
+    from score where 1=1
+    <if test="score.scoreGrade != null" >
+       and score_grade=#{score.scoreGrade,jdbcType=CHAR}
+     </if>
+    <if test="score.scoreTeam != null" >
+       and score_team=#{score.scoreTeam,jdbcType=CHAR}
+     </if>
+    <if test="orderByClause !=null">
+    	order by ${orderByClause} 
+    </if>
+  </select>
+  <select id="findScoreBySome" resultMap="BaseResultMap" parameterType="com.cn.lww.pojo.ScoreExtension">    
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Base_Column_List" />
+    from score where 1=1
+    <if test="score.scoreId != null" >
+       and score_id= #{score.scoreId,jdbcType=INTEGER}
+      </if>
+      <if test="score.score != null" >
+       and score=#{score.score,jdbcType=INTEGER}
+      </if>
+      <if test="score.subjectId != null" >
+       and subject_id=#{score.subjectId,jdbcType=INTEGER}
+      </if>
+      <if test="score.studentNumber != null" >
+       and student_number=#{score.studentNumber,jdbcType=INTEGER}
+      </if>
+      <if test="score.subjectTeacherNumber != null" >
+       and subject_teacher_number=#{score.subjectTeacherNumber,jdbcType=INTEGER}
+      </if>
+      <if test="score.modificationTeacherNumber != null" >
+       and modification_teacher_number=#{score.modificationTeacherNumber,jdbcType=INTEGER}
+      </if>
+      <if test="score.scoreJoinTime != null" >
+       and score_join_time=#{score.scoreJoinTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="score.scoreGrade != null" >
+       and score_grade=#{score.scoreGrade,jdbcType=CHAR}
+      </if>
+      <if test="score.scoreTeam != null" >
+       and score_team=#{score.scoreTeam,jdbcType=CHAR}
+      </if>
+      <if test="orderByClause !=null">
+    	ORDER by ${orderByClause} 
+      </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from score
+    where score_id = #{scoreId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from score
+    where score_id = #{scoreId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.lww.pojo.Score" >
+    insert into score (score_id, score, subject_id, 
+      student_number, subject_teacher_number, modification_teacher_number, 
+      score_join_time, score_grade, score_team, 
+      descript)
+    values (#{scoreId,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, #{subjectId,jdbcType=INTEGER}, 
+      #{studentNumber,jdbcType=INTEGER}, #{subjectTeacherNumber,jdbcType=INTEGER}, #{modificationTeacherNumber,jdbcType=INTEGER}, 
+      #{scoreJoinTime,jdbcType=TIMESTAMP}, #{scoreGrade,jdbcType=VARCHAR}, #{scoreTeam,jdbcType=CHAR}, 
+      #{descript,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.lww.pojo.Score" >
+    insert into score
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="scoreId != null" >
+        score_id,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="subjectId != null" >
+        subject_id,
+      </if>
+      <if test="studentNumber != null" >
+        student_number,
+      </if>
+      <if test="subjectTeacherNumber != null" >
+        subject_teacher_number,
+      </if>
+      <if test="modificationTeacherNumber != null" >
+        modification_teacher_number,
+      </if>
+      <if test="scoreJoinTime != null" >
+        score_join_time,
+      </if>
+      <if test="scoreGrade != null" >
+        score_grade,
+      </if>
+      <if test="scoreTeam != null" >
+        score_team,
+      </if>
+      <if test="descript != null" >
+        descript,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="scoreId != null" >
+        #{scoreId,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="subjectId != null" >
+        #{subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="studentNumber != null" >
+        #{studentNumber,jdbcType=INTEGER},
+      </if>
+      <if test="subjectTeacherNumber != null" >
+        #{subjectTeacherNumber,jdbcType=INTEGER},
+      </if>
+      <if test="modificationTeacherNumber != null" >
+        #{modificationTeacherNumber,jdbcType=INTEGER},
+      </if>
+      <if test="scoreJoinTime != null" >
+        #{scoreJoinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scoreGrade != null" >
+        #{scoreGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreTeam != null" >
+        #{scoreTeam,jdbcType=CHAR},
+      </if>
+      <if test="descript != null" >
+        #{descript,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.lww.pojo.Score" >
+    update score
+    <set >
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="subjectId != null" >
+        subject_id = #{subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="studentNumber != null" >
+        student_number = #{studentNumber,jdbcType=INTEGER},
+      </if>
+      <if test="subjectTeacherNumber != null" >
+        subject_teacher_number = #{subjectTeacherNumber,jdbcType=INTEGER},
+      </if>
+      <if test="modificationTeacherNumber != null" >
+        modification_teacher_number = #{modificationTeacherNumber,jdbcType=INTEGER},
+      </if>
+      <if test="scoreJoinTime != null" >
+        score_join_time = #{scoreJoinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scoreGrade != null" >
+        score_grade = #{scoreGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreTeam != null" >
+        score_team = #{scoreTeam,jdbcType=CHAR},
+      </if>
+      <if test="descript != null" >
+        descript = #{descript,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where score_id = #{scoreId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.lww.pojo.Score" >
+    update score
+    set score = #{score,jdbcType=INTEGER},
+      subject_id = #{subjectId,jdbcType=INTEGER},
+      student_number = #{studentNumber,jdbcType=INTEGER},
+      subject_teacher_number = #{subjectTeacherNumber,jdbcType=INTEGER},
+      modification_teacher_number = #{modificationTeacherNumber,jdbcType=INTEGER},
+      score_join_time = #{scoreJoinTime,jdbcType=TIMESTAMP},
+      score_grade = #{scoreGrade,jdbcType=VARCHAR},
+      score_team = #{scoreTeam,jdbcType=CHAR},
+      descript = #{descript,jdbcType=VARCHAR}
+    where score_id = #{scoreId,jdbcType=INTEGER}
+  </update>
+</mapper>

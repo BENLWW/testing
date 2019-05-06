@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.lww.dao.RoleGroupCorrelateDao" >
+  <resultMap id="BaseResultMap" type="com.cn.lww.pojo.RoleGroupCorrelate" >
+    <id column="p_g_id" property="pGId" jdbcType="INTEGER" />
+    <result column="menu_id" property="menuId" jdbcType="INTEGER" />
+    <result column="role_group_id" property="roleGroupId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    p_g_id, menu_id, role_group_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from role_group_correlate
+    where p_g_id = #{pGId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByRoleGroupID" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from role_group_correlate
+    where role_group_id = #{roleGroupId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from role_group_correlate
+    where p_g_id = #{pGId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.lww.pojo.RoleGroupCorrelate" >
+    insert into role_group_correlate (p_g_id, menu_id, role_group_id
+      )
+    values (#{pGId,jdbcType=INTEGER}, #{menuId,jdbcType=INTEGER}, #{roleGroupId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.lww.pojo.RoleGroupCorrelate" >
+    insert into role_group_correlate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pGId != null" >
+        p_g_id,
+      </if>
+      <if test="menuId != null" >
+        menu_id,
+      </if>
+      <if test="roleGroupId != null" >
+        role_group_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pGId != null" >
+        #{pGId,jdbcType=INTEGER},
+      </if>
+      <if test="menuId != null" >
+        #{menuId,jdbcType=INTEGER},
+      </if>
+      <if test="roleGroupId != null" >
+        #{roleGroupId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.lww.pojo.RoleGroupCorrelate" >
+    update role_group_correlate
+    <set >
+      <if test="menuId != null" >
+        menu_id = #{menuId,jdbcType=INTEGER},
+      </if>
+      <if test="roleGroupId != null" >
+        role_group_id = #{roleGroupId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where p_g_id = #{pGId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.lww.pojo.RoleGroupCorrelate" >
+    update role_group_correlate
+    set menu_id = #{menuId,jdbcType=INTEGER},
+      role_group_id = #{roleGroupId,jdbcType=INTEGER}
+    where p_g_id = #{pGId,jdbcType=INTEGER}
+  </update>
+</mapper>

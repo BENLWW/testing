@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.lww.dao.UserDao" >
+  <resultMap id="BaseResultMap" type="com.cn.lww.pojo.User" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_number" property="userNumber" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_position" property="userPosition" jdbcType="INTEGER" />
+    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+    <result column="user_phone" property="userPhone" jdbcType="VARCHAR" />
+    <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
+    <result column="user_lapse" property="userLapse" jdbcType="VARCHAR" />
+    <result column="user_lapse_time" property="userLapseTime" jdbcType="TIMESTAMP" />
+    <result column="last_join_time" property="lastJoinTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.cn.lww.pojo.User" extends="BaseResultMap" >
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, user_number, user_name, user_position, user_password, user_phone, user_email, 
+    user_lapse, user_lapse_time, last_join_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUserNumber" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user
+    where user_number = #{user_number,jdbcType=INTEGER}
+  </select>
+  
+  <select id="findAll" resultMap="ResultMapWithBLOBs" >    
+        select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.lww.pojo.User" >
+    insert into user (user_id, user_number, user_name, 
+      user_position, user_password, user_phone, 
+      user_email, user_lapse, user_lapse_time, 
+      last_join_time, remark)
+    values (#{userId,jdbcType=INTEGER}, #{userNumber,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
+      #{userPosition,jdbcType=INTEGER}, #{userPassword,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, 
+      #{userEmail,jdbcType=VARCHAR}, #{userLapse,jdbcType=VARCHAR}, #{userLapseTime,jdbcType=TIMESTAMP}, 
+      #{lastJoinTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.lww.pojo.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userNumber != null" >
+        user_number,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userPosition != null" >
+        user_position,
+      </if>
+      <if test="userPassword != null" >
+        user_password,
+      </if>
+      <if test="userPhone != null" >
+        user_phone,
+      </if>
+      <if test="userEmail != null" >
+        user_email,
+      </if>
+      <if test="userLapse != null" >
+        user_lapse,
+      </if>
+      <if test="userLapseTime != null" >
+        user_lapse_time,
+      </if>
+      <if test="lastJoinTime != null" >
+        last_join_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userNumber != null" >
+        #{userNumber,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPosition != null" >
+        #{userPosition,jdbcType=INTEGER},
+      </if>
+      <if test="userPassword != null" >
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null" >
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userLapse != null" >
+        #{userLapse,jdbcType=VARCHAR},
+      </if>
+      <if test="userLapseTime != null" >
+        #{userLapseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastJoinTime != null" >
+        #{lastJoinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.lww.pojo.User" >
+    update user
+    <set >
+      <if test="userNumber != null" >
+        user_number = #{userNumber,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPosition != null" >
+        user_position = #{userPosition,jdbcType=INTEGER},
+      </if>
+      <if test="userPassword != null" >
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null" >
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        user_email = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userLapse != null" >
+        user_lapse = #{userLapse,jdbcType=VARCHAR},
+      </if>
+      <if test="userLapseTime != null" >
+        user_lapse_time = #{userLapseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastJoinTime != null" >
+        last_join_time = #{lastJoinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cn.lww.pojo.User" >
+    update user
+    set user_number = #{userNumber,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_position = #{userPosition,jdbcType=INTEGER},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      user_lapse = #{userLapse,jdbcType=VARCHAR},
+      user_lapse_time = #{userLapseTime,jdbcType=TIMESTAMP},
+      last_join_time = #{lastJoinTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.lww.pojo.User" >
+    update user
+    set user_number = #{userNumber,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_position = #{userPosition,jdbcType=INTEGER},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      user_lapse = #{userLapse,jdbcType=VARCHAR},
+      user_lapse_time = #{userLapseTime,jdbcType=TIMESTAMP},
+      last_join_time = #{lastJoinTime,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>
